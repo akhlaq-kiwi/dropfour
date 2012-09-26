@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical" >
 	
 	
@@ -29,139 +29,64 @@
     <LinearLayout 
 	    android:id="@+id/top_container"
 	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
+	    android:layout_height="150dp"
 	    android:orientation="vertical"
-	    android:padding="5dp">
+	    android:padding="5dp"
+	    android:background="@layout/rounded">
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Game Invites" />
-	    
-		<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-
-		    android:layout_width="fill_parent"
-		    android:layout_height="100dp"
-		    android:background="@layout/rounded">
-			<ListView android:id="@+id/game_invites"
-	  			android:layout_width="fill_parent"
-	  			android:layout_height="wrap_content"
-	  			android:choiceMode="multipleChoice"
-	  		/>
-		</ScrollView>
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Your Turn" />
-	    
-		<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-
-		    android:layout_width="fill_parent"
-		    android:layout_height="100dp"
-		    android:background="@layout/rounded">
-		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-		    android:orientation="vertical"
-		    android:layout_width="fill_parent"
-		    android:layout_height="fill_parent"
-		    >
-		
-		    <Button
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:text="Button 1"
-		    />
-		    <Button
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:text="Button 2"
-		    />
-		    <Button
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:text="Button 3"
-		    />
-		    
-		    <Button
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:text="Button 4"
-		    />
-		    <Button
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:text="Button 5"
-		    />
-		     <Button
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:text="Button 6"
-		    />
-		      <Button
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:text="Button 7"
-		    />
-		</LinearLayout>
-		</ScrollView>
-		
-		<TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Their Turn" />
-	    
-		<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-
-		    android:layout_width="fill_parent"
-		    android:layout_height="100dp"
-		    android:background="@layout/rounded">
-		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-		    android:orientation="vertical"
-		    android:layout_width="fill_parent"
-		    android:layout_height="fill_parent"
-		    >
-		
-		    <Button
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:text="Button 1"
-		    />
-		    <Button
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:text="Button 2"
-		    />
-		    <Button
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:text="Button 3"
-		    />
-		    
-		    <Button
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:text="Button 4"
-		    />
-		    <Button
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:text="Button 5"
-		    />
-		     <Button
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:text="Button 6"
-		    />
-		      <Button
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:text="Button 7"
-		    />
-		</LinearLayout>
-		</ScrollView>
+        <ListView android:id="@+id/game_invites"
+	  		android:layout_width="fill_parent"
+	  		android:layout_height="wrap_content"
+	  		android:choiceMode="multipleChoice"/>
+	      
     </LinearLayout>
+    
+    <LinearLayout 
+	    android:id="@+id/top_container"
+	    android:layout_width="match_parent"
+	    android:layout_height="150dp"
+	    android:orientation="vertical"
+	    android:padding="5dp"
+	    android:background="@layout/rounded">
+
+        <ListView android:id="@+id/game_invites1"
+	  		android:layout_width="fill_parent"
+	  		android:layout_height="wrap_content"
+	  		android:choiceMode="multipleChoice"/>
+	      
+    </LinearLayout>
+    
+    <LinearLayout 
+	    android:id="@+id/top_container"
+	    android:layout_width="match_parent"
+	    android:layout_height="150dp"
+	    android:orientation="vertical"
+	    android:padding="5dp"
+	    android:background="@layout/rounded">
+
+        <ListView android:id="@+id/game_invites2"
+	  		android:layout_width="fill_parent"
+	  		android:layout_height="wrap_content"
+	  		android:choiceMode="multipleChoice"/>
+	      
+    </LinearLayout>
+    
+    <LinearLayout 
+	    android:id="@+id/top_container"
+	    android:layout_width="match_parent"
+	    android:layout_height="150dp"
+	    android:orientation="vertical"
+	    android:padding="5dp"
+	    android:background="@layout/rounded">
+
+        <ListView android:id="@+id/game_invites3"
+	  		android:layout_width="fill_parent"
+	  		android:layout_height="wrap_content"
+	  		android:choiceMode="multipleChoice"/>
+	      
+    </LinearLayout>
+    
+    
 
     <Button
         android:id="@+id/logout"

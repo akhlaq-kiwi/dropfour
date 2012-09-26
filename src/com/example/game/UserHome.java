@@ -9,10 +9,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
 import com.facebook.android.AsyncFacebookRunner;
 import com.facebook.android.Facebook;
 import com.facebook.android.AsyncFacebookRunner.RequestListener;
-import com.facebook.android.Facebook.DialogListener;
 import com.facebook.android.FacebookError;
 import com.facebook.android.Util;
 
@@ -25,6 +25,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class UserHome extends Activity {
@@ -42,7 +43,6 @@ public class UserHome extends Activity {
         mAsyncRunner.request("me", new GetInfo());
         
         mAsyncRunner.request("me/friends", new FriendRequestListener());
-
         
         ((Button)findViewById(R.id.logout)).setOnClickListener(new View.OnClickListener() {
 			
@@ -172,7 +172,23 @@ public class UserHome extends Activity {
 					JSONObject friend = friends.getJSONObject(i);
 					Log.d("response", friend.getString("name"));
 				}
-
+				
+				runOnUiThread(new Runnable() {
+					public void run() {
+						ListView listView = (ListView) findViewById(R.id.game_invites);
+				        listView.setAdapter(new Dummyadapter(UserHome.this));
+				        
+				        ListView listView1 = (ListView) findViewById(R.id.game_invites1);
+				        listView1.setAdapter(new Dummyadapter(UserHome.this));
+				        
+				        ListView listView2 = (ListView) findViewById(R.id.game_invites2);
+				        listView2.setAdapter(new Dummyadapter(UserHome.this));
+				        
+				        ListView listView3 = (ListView) findViewById(R.id.game_invites3);
+				        listView3.setAdapter(new Dummyadapter(UserHome.this));
+					}
+				});
+				
 			} catch (FacebookError e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -181,7 +197,7 @@ public class UserHome extends Activity {
 				e.printStackTrace();
 			}
             
-
+			
 			
 		}
 
