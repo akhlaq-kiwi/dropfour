@@ -4,6 +4,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,12 +29,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 public class UserHome extends Activity {
 	private static String APP_ID = "282573958514998"; // Replace your App ID here
-	
+	String[] values;
+	private ArrayList<Friend> friendArray;
 	private Facebook facebook = new Facebook(APP_ID);
+	ListView lv;
     private AsyncFacebookRunner mAsyncRunner = new AsyncFacebookRunner(facebook);
 	
 	@Override
@@ -165,29 +171,34 @@ public class UserHome extends Activity {
 		@Override
 		public void onComplete(String response, Object state) {
 			JSONObject json;
+			
 			try {
 				json = Util.parseJson(response);
 				final JSONArray friends = json.getJSONArray("data");
+				
+				friendArray = new ArrayList<Friend>();
 				for (int i = 0; i < friends.length(); i++) {
 					JSONObject friend = friends.getJSONObject(i);
-					Log.d("response", friend.getString("name"));
+					Friend frnd = new Friend();
+					
+					frnd.setName(friend.getString("name"));
+					frnd.setId(i+1);
+					frnd.setFbId(friend.getString("id"));
+					friendArray.add(frnd);
+					
 				}
-				
 				runOnUiThread(new Runnable() {
+					
+					@Override
 					public void run() {
-						ListView listView = (ListView) findViewById(R.id.game_invites);
-				        listView.setAdapter(new Dummyadapter(UserHome.this));
-				        
-				        ListView listView1 = (ListView) findViewById(R.id.game_invites1);
-				        listView1.setAdapter(new Dummyadapter(UserHome.this));
-				        
-				        ListView listView2 = (ListView) findViewById(R.id.game_invites2);
-				        listView2.setAdapter(new Dummyadapter(UserHome.this));
-				        
-				        ListView listView3 = (ListView) findViewById(R.id.game_invites3);
-				        listView3.setAdapter(new Dummyadapter(UserHome.this));
+						lv = (ListView)findViewById(R.id.game_invites);
+						FriendAdapter frnd_adapter = new FriendAdapter(UserHome.this, friendArray);
+						lv.setAdapter(frnd_adapter);
 					}
 				});
+				
+				
+						
 				
 			} catch (FacebookError e) {
 				// TODO Auto-generated catch block

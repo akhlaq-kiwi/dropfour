@@ -41,53 +41,6 @@
 	      
     </LinearLayout>
     
-    <LinearLayout 
-	    android:id="@+id/top_container"
-	    android:layout_width="match_parent"
-	    android:layout_height="150dp"
-	    android:orientation="vertical"
-	    android:padding="5dp"
-	    android:background="@layout/rounded">
-
-        <ListView android:id="@+id/game_invites1"
-	  		android:layout_width="fill_parent"
-	  		android:layout_height="wrap_content"
-	  		android:choiceMode="multipleChoice"/>
-	      
-    </LinearLayout>
-    
-    <LinearLayout 
-	    android:id="@+id/top_container"
-	    android:layout_width="match_parent"
-	    android:layout_height="150dp"
-	    android:orientation="vertical"
-	    android:padding="5dp"
-	    android:background="@layout/rounded">
-
-        <ListView android:id="@+id/game_invites2"
-	  		android:layout_width="fill_parent"
-	  		android:layout_height="wrap_content"
-	  		android:choiceMode="multipleChoice"/>
-	      
-    </LinearLayout>
-    
-    <LinearLayout 
-	    android:id="@+id/top_container"
-	    android:layout_width="match_parent"
-	    android:layout_height="150dp"
-	    android:orientation="vertical"
-	    android:padding="5dp"
-	    android:background="@layout/rounded">
-
-        <ListView android:id="@+id/game_invites3"
-	  		android:layout_width="fill_parent"
-	  		android:layout_height="wrap_content"
-	  		android:choiceMode="multipleChoice"/>
-	      
-    </LinearLayout>
-    
-    
-
     <Button
         android:id="@+id/logout"
         android:layout_width="100dp"
