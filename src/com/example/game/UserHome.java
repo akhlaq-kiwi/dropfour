@@ -26,6 +26,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -39,6 +40,7 @@ public class UserHome extends Activity {
 	private Facebook facebook = new Facebook(APP_ID);
 	ListView lv;
     private AsyncFacebookRunner mAsyncRunner = new AsyncFacebookRunner(facebook);
+    FriendAdapter mFriendAdapter;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -177,7 +179,8 @@ public class UserHome extends Activity {
 				final JSONArray friends = json.getJSONArray("data");
 				
 				friendArray = new ArrayList<Friend>();
-				for (int i = 0; i < friends.length(); i++) {
+				for (int i = 0; i < 10; i++) {
+					
 					JSONObject friend = friends.getJSONObject(i);
 					Friend frnd = new Friend();
 					
@@ -192,8 +195,19 @@ public class UserHome extends Activity {
 					@Override
 					public void run() {
 						lv = (ListView)findViewById(R.id.game_invites);
-						FriendAdapter frnd_adapter = new FriendAdapter(UserHome.this, friendArray);
-						lv.setAdapter(frnd_adapter);
+						mFriendAdapter = new FriendAdapter(UserHome.this, friendArray);
+						lv.setAdapter(mFriendAdapter);
+						
+						Utility.setListViewHeightBasedOnChildren(lv);
+						
+						ListView your_turn = (ListView)findViewById(R.id.your_turn);
+						your_turn.setAdapter(mFriendAdapter);
+						Utility.setListViewHeightBasedOnChildren(your_turn);
+						
+						ListView their_turn = (ListView)findViewById(R.id.their_turn);
+						their_turn.setAdapter(mFriendAdapter);
+						Utility.setListViewHeightBasedOnChildren(their_turn);
+						
 					}
 				});
 				
@@ -239,4 +253,6 @@ public class UserHome extends Activity {
 		}
 		
 	}
+	
+	
 }

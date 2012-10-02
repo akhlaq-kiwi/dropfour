@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +18,13 @@ import android.widget.TextView;
 
 public class FriendAdapter extends BaseAdapter{
 	private ArrayList<Friend> innerClassFriendArray;
-	Context this_ctx;
+	private Context this_ctx;
+	public ArrayList<ImageView> mIconList;
+	
 	public FriendAdapter(Context ctx, ArrayList<Friend> paraFriendArray) {
 		innerClassFriendArray = paraFriendArray;
 		this_ctx = ctx;
+		mIconList = new ArrayList<ImageView>();
 	}
 
 	// How many items are in the data set represented by this Adapter.
@@ -47,19 +51,21 @@ public class FriendAdapter extends BaseAdapter{
 	public View getView(int position, View convertView, ViewGroup parent) {
 	
 	
-		if(convertView == null){
+		if(convertView == null) {
 			// LayoutInflater class is used to instantiate layout XML file into its corresponding View objects.
 			LayoutInflater layoutInflater = (LayoutInflater) this_ctx.getSystemService(this_ctx.LAYOUT_INFLATER_SERVICE);
 			convertView = layoutInflater.inflate(R.layout.grid_item, null);
-		}
+			mIconList.add((ImageView)convertView.findViewById(R.id.icon)); 
+		} 
 	
 		TextView rawTextView = (TextView) convertView.findViewById(R.id.name);	
 		rawTextView.setText(innerClassFriendArray.get(position).getName());
 		
 		
 		
-		
-		
 		return convertView;
 	}	
+	
+	
+	
 }
