@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ public class FriendAdapter extends BaseAdapter{
 	private ArrayList<Friend> innerClassFriendArray;
 	private Context this_ctx;
 	public ArrayList<ImageView> mIconList;
+	
 	
 	public FriendAdapter(Context ctx, ArrayList<Friend> paraFriendArray) {
 		innerClassFriendArray = paraFriendArray;
@@ -61,11 +63,79 @@ public class FriendAdapter extends BaseAdapter{
 		TextView rawTextView = (TextView) convertView.findViewById(R.id.name);	
 		rawTextView.setText(innerClassFriendArray.get(position).getName());
 		
+		ImageView img = (ImageView)convertView.findViewById(R.id.icon);
+		String id = innerClassFriendArray.get(position).getFbId();
 		
+		String url = "http://graph.facebook.com/"+id+"/picture?type=large";
+		//updateImage(img, id);
+		new LoadImage(img).execute(url);
+
 		
 		return convertView;
 	}	
 	
+	public class LoadImage extends AsyncTask<String, Void, Bitmap>{
+		private ImageView imv;
+       
+        public LoadImage(ImageView imv) {
+             this.imv = imv;
+        }
+        @Override
+		protected Bitmap doInBackground(String... params) {
+			URL img_value = null;
+			Bitmap mIcon1 = null;
+			try {
+				img_value = new URL(params[0]);
+				mIcon1 = BitmapFactory.decodeStream(img_value.openConnection().getInputStream());
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			return mIcon1;
+		}
+
+        @Override
+        protected void onPostExecute(Bitmap result) {
+           imv.setImageBitmap(result);
+           notifyDataSetChanged();
+           Log.d("msg", "test");
+        }
+
+		
+	}
+
 	
+	
+	public void updateImage(final ImageView img, final String id){
+		Thread thrd = new Thread(new Runnable() {
+			
+			
+			
+			@Override
+			public void run() {
+				URL img_value = null;
+				Bitmap mIcon1 = null;
+				try {
+					img_value = new URL("http://graph.facebook.com/"+id+"/picture?type=large");
+					mIcon1 = BitmapFactory.decodeStream(img_value.openConnection().getInputStream());
+				} catch (MalformedURLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				img.setImageBitmap(mIcon1);
+				notifyDataSetChanged();
+				
+			}
+		});
+		thrd.start();
+		
+		
+	}
 	
 }

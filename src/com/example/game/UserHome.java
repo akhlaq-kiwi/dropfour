@@ -24,13 +24,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 public class UserHome extends Activity {
@@ -56,7 +53,6 @@ public class UserHome extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				mAsyncRunner.logout(getApplicationContext(), new logoutListner());
 			}
 		});
@@ -74,7 +70,6 @@ public class UserHome extends Activity {
 
 		@Override
 		public void onIOException(IOException e, Object state) {
-			// TODO Auto-generated method stub
 			
 		}
 
@@ -128,7 +123,6 @@ public class UserHome extends Activity {
 				
 				
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
@@ -142,7 +136,6 @@ public class UserHome extends Activity {
 
 		@Override
 		public void onIOException(IOException e, Object state) {
-			// TODO Auto-generated method stub
 			
 		}
 
@@ -179,7 +172,7 @@ public class UserHome extends Activity {
 				final JSONArray friends = json.getJSONArray("data");
 				
 				friendArray = new ArrayList<Friend>();
-				for (int i = 0; i < 10; i++) {
+				for (int i = 0; i < 5; i++) {
 					
 					JSONObject friend = friends.getJSONObject(i);
 					Friend frnd = new Friend();
