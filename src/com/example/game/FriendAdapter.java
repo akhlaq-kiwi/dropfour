@@ -21,7 +21,7 @@ public class FriendAdapter extends BaseAdapter{
 	private ArrayList<Friend> innerClassFriendArray;
 	private Context this_ctx;
 	public ArrayList<ImageView> mIconList;
-	
+	public ImageLoader imageLoader = new ImageLoader(this_ctx);
 	
 	public FriendAdapter(Context ctx, ArrayList<Friend> paraFriendArray) {
 		innerClassFriendArray = paraFriendArray;
@@ -68,8 +68,7 @@ public class FriendAdapter extends BaseAdapter{
 		
 		String url = "http://graph.facebook.com/"+id+"/picture?type=large";
 		//updateImage(img, id);
-		new LoadImage(img).execute(url);
-
+		imageLoader.DisplayImage(url, img);
 		
 		return convertView;
 	}	

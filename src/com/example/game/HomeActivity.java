@@ -23,9 +23,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 public class HomeActivity extends Activity {
-	private static String APP_ID = "282573958514998"; // Replace your App ID here
-	
-	private Facebook facebook = new Facebook(APP_ID);
+	private Facebook facebook = new Facebook(Utils.APP_ID);
     private AsyncFacebookRunner mAsyncRunner = new AsyncFacebookRunner(facebook);
     
 	@Override

@@ -24,17 +24,18 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class UserHome extends Activity {
-	private static String APP_ID = "282573958514998"; // Replace your App ID here
-	String[] values;
+	
 	private ArrayList<Friend> friendArray;
-	private Facebook facebook = new Facebook(APP_ID);
+	private Facebook facebook = new Facebook(Utils.APP_ID);
 	ListView lv;
     private AsyncFacebookRunner mAsyncRunner = new AsyncFacebookRunner(facebook);
     FriendAdapter mFriendAdapter;
@@ -54,6 +55,16 @@ public class UserHome extends Activity {
 			@Override
 			public void onClick(View v) {
 				mAsyncRunner.logout(getApplicationContext(), new logoutListner());
+			}
+		});
+        
+        ((Button)findViewById(R.id.invite_friends)).setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(getApplicationContext(), FriendList.class);
+				startActivity(i);
+				
 			}
 		});
 	}
@@ -102,7 +113,7 @@ public class UserHome extends Activity {
 			try {
 				profile = new JSONObject(response);
 				final String name = profile.getString("name");
-				String id = profile.getString("id");
+				final String id = profile.getString("id");
 				
 				final ImageView user_picture;
 				user_picture=(ImageView)findViewById(R.id.image);
@@ -115,7 +126,19 @@ public class UserHome extends Activity {
                     public void run() {
                     	((TextView)findViewById(R.id.top_text)).setText("Hello "+name);
                     	user_picture.setImageBitmap(mIcon1);
-                    	//Toast.makeText(getApplicationContext(), "Name: " + name + "\nEmail: " + email, Toast.LENGTH_LONG).show();
+                    	JSONObject json_data = new JSONObject();
+                    	
+                    	try {
+							json_data.put("name", name);
+							json_data.put("fb_profileid", id);
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+                    	
+                    	
+                    	String response  = Utils.postData("user.php", json_data.toString());
+                    	Log.d("response", response);
                     }
  
                 });
@@ -191,15 +214,17 @@ public class UserHome extends Activity {
 						mFriendAdapter = new FriendAdapter(UserHome.this, friendArray);
 						lv.setAdapter(mFriendAdapter);
 						
-						Utility.setListViewHeightBasedOnChildren(lv);
+						
+						
+						Utils.setListViewHeightBasedOnChildren(lv);
 						
 						ListView your_turn = (ListView)findViewById(R.id.your_turn);
 						your_turn.setAdapter(mFriendAdapter);
-						Utility.setListViewHeightBasedOnChildren(your_turn);
+						Utils.setListViewHeightBasedOnChildren(your_turn);
 						
 						ListView their_turn = (ListView)findViewById(R.id.their_turn);
 						their_turn.setAdapter(mFriendAdapter);
-						Utility.setListViewHeightBasedOnChildren(their_turn);
+						Utils.setListViewHeightBasedOnChildren(their_turn);
 						
 					}
 				});
