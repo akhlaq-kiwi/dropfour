@@ -18,7 +18,6 @@ import com.facebook.android.AsyncFacebookRunner.RequestListener;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,10 +39,18 @@ public class FriendList extends Activity {
         setContentView(R.layout.friend_list);
         SessionStore.restore(facebook, getApplicationContext());
         
-        Log.d("name", "In Activity");
-        mAsyncRunner.request("me/friends", new FriendRequestListener());
+        Bundle extras = getIntent().getExtras();
+        String apiResponse = extras.getString("API_RESPONSE");
+        try {
+			jsonArray = new JSONObject(apiResponse).getJSONArray("data");
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
-        
+        lv = (ListView) findViewById(R.id.friend_list);
+        //friendsList.setOnItemClickListener(this);
+        lv.setAdapter(new FriendListAdapter(this));
     }
     private class FriendRequestListener implements RequestListener{
 
@@ -54,7 +61,6 @@ public class FriendList extends Activity {
 			try {
 				json = Util.parseJson(response);
 				jsonArray = json.getJSONArray("data");
-				Log.d("name", "In Litsner On complete"+ jsonArray.toString());
 				lv = (ListView)findViewById(R.id.friend_list);
 				mFriendAdapter = new FriendListAdapter(FriendList.this);
 			} catch (FacebookError e) {
@@ -100,7 +106,6 @@ public class FriendList extends Activity {
     public class FriendListAdapter extends BaseAdapter {
         private LayoutInflater mInflater;
         FriendList friendsList;
-        JSONArray json_array;
 
         public FriendListAdapter(FriendList friendsList) {
             this.friendsList = friendsList;
@@ -113,7 +118,6 @@ public class FriendList extends Activity {
 
         @Override
         public int getCount() {
-            Log.d("name", ""+jsonArray.length());
         	return jsonArray.length();
         }
 
@@ -138,16 +142,18 @@ public class FriendList extends Activity {
             }
             View hView = convertView;
             if (convertView == null) {
-                hView = mInflater.inflate(R.layout.grid_item, null);
+                hView = mInflater.inflate(R.layout.friend_item, null);
                 ViewHolder holder = new ViewHolder();
+                holder.profile_pic = (ImageView) hView.findViewById(R.id.profile_pic);
                 holder.name = (TextView) hView.findViewById(R.id.name);
-                holder.icon = (ImageView) hView.findViewById(R.id.icon);
+                holder.info = (TextView) hView.findViewById(R.id.info);
                 hView.setTag(holder);
             }
 
             ViewHolder holder = (ViewHolder) hView.getTag();
             try {
-                    holder.icon.setImageBitmap(Utility.model.getImage(jsonObject.getString("id"), jsonObject.getString("picture")));
+                    holder.profile_pic.setImageBitmap(Utility.model.getImage(
+                            jsonObject.getString("id"), jsonObject.getString("picture")));
                 
             } catch (JSONException e) {
                 holder.name.setText("");
@@ -157,16 +163,21 @@ public class FriendList extends Activity {
             } catch (JSONException e) {
                 holder.name.setText("");
             }
-           
+            try {
+                    holder.info.setText(jsonObject.getJSONObject("location").getString("name"));
+                
+            } catch (JSONException e) {
+                holder.info.setText("");
+            }
             return hView;
         }
 
     }
 
     class ViewHolder {
-        ImageView icon;
+        ImageView profile_pic;
         TextView name;
-        
+        TextView info;
     }
     
 }
