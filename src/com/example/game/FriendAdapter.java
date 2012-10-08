@@ -27,6 +27,10 @@ public class FriendAdapter extends BaseAdapter{
 		innerClassFriendArray = paraFriendArray;
 		this_ctx = ctx;
 		mIconList = new ArrayList<ImageView>();
+		if (Utility.model == null) {
+            Utility.model = new FriendsGetProfilePics();
+        }
+        Utility.model.setListener(this);
 	}
 
 	// How many items are in the data set represented by this Adapter.
@@ -66,75 +70,13 @@ public class FriendAdapter extends BaseAdapter{
 		ImageView img = (ImageView)convertView.findViewById(R.id.icon);
 		String id = innerClassFriendArray.get(position).getFbId();
 		
-		String url = "http://graph.facebook.com/"+id+"/picture?type=large";
-		//updateImage(img, id);
-		imageLoader.DisplayImage(url, img);
+		String url = "http://graph.facebook.com/"+id+"/picture?type=small";
+		
+		img.setImageBitmap(Utility.model.getImage(id, url));
 		
 		return convertView;
 	}	
 	
-	public class LoadImage extends AsyncTask<String, Void, Bitmap>{
-		private ImageView imv;
-       
-        public LoadImage(ImageView imv) {
-             this.imv = imv;
-        }
-        @Override
-		protected Bitmap doInBackground(String... params) {
-			URL img_value = null;
-			Bitmap mIcon1 = null;
-			try {
-				img_value = new URL(params[0]);
-				mIcon1 = BitmapFactory.decodeStream(img_value.openConnection().getInputStream());
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-			return mIcon1;
-		}
-
-        @Override
-        protected void onPostExecute(Bitmap result) {
-           imv.setImageBitmap(result);
-           notifyDataSetChanged();
-           Log.d("msg", "test");
-        }
-
-		
-	}
-
 	
-	
-	public void updateImage(final ImageView img, final String id){
-		Thread thrd = new Thread(new Runnable() {
-			
-			
-			
-			@Override
-			public void run() {
-				URL img_value = null;
-				Bitmap mIcon1 = null;
-				try {
-					img_value = new URL("http://graph.facebook.com/"+id+"/picture?type=large");
-					mIcon1 = BitmapFactory.decodeStream(img_value.openConnection().getInputStream());
-				} catch (MalformedURLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				img.setImageBitmap(mIcon1);
-				notifyDataSetChanged();
-				
-			}
-		});
-		thrd.start();
-		
-		
-	}
 	
 }

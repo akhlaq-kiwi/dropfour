@@ -62,52 +62,19 @@ public class UserHome extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				Bundle params = new Bundle();
-		        params.putString("fields", "name, picture, location");
-		        mAsyncRunner.request("me/friends", params, new FriendListListener());
+//				Bundle params = new Bundle();
+//		        params.putString("fields", "name, picture, location");
+				Intent myIntent = new Intent(UserHome.this, FriendList.class);
+	            startActivity(myIntent);
+				
+		        
 				
 				
 				
 			}
 		});
 	}
-	private class FriendListListener implements RequestListener{
-
-		@Override
-		public void onComplete(String response, Object state) {
-			Log.d("name", response);
-			Intent myIntent = new Intent(getApplicationContext(), FriendList.class);
-            myIntent.putExtra("API_RESPONSE", response);
-            startActivity(myIntent);
-		}
-
-		@Override
-		public void onIOException(IOException e, Object state) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void onFileNotFoundException(FileNotFoundException e,
-				Object state) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void onMalformedURLException(MalformedURLException e,
-				Object state) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void onFacebookError(FacebookError e, Object state) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-	}
+	
 	
 	
 	private class logoutListner implements RequestListener{

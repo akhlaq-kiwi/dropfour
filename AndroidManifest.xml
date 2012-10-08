@@ -24,15 +24,9 @@
         </activity>
         <activity android:name=".UserHome" >
         </activity>
-        <activity
-            android:name=".FriendList"
-            android:label="@string/title_activity_friend_list" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity android:name=".FriendList" >
         </activity>
+        
     </application>
 
 </manifest>
