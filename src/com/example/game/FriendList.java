@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import com.facebook.android.AsyncFacebookRunner;
 import com.facebook.android.Facebook;
@@ -18,9 +19,17 @@ import com.facebook.android.AsyncFacebookRunner.RequestListener;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.TextView;
+import android.widget.Toast;
 
-public class FriendList extends Activity {
+public class FriendList extends Activity implements OnItemClickListener  {
 	ListView lv;
 	FriendAdapter mFriendAdapter;
 	ArrayList<Friend> friendArray = new ArrayList<Friend>();
@@ -43,7 +52,7 @@ public class FriendList extends Activity {
 		@Override
 		public void onComplete(String response, Object state) {
 			
-JSONObject json;
+			JSONObject json;
 			
 			try {
 				json = Util.parseJson(response);
@@ -68,11 +77,7 @@ JSONObject json;
 						lv = (ListView)findViewById(R.id.friend_list);
 						mFriendAdapter = new FriendAdapter(FriendList.this, friendArray);
 						lv.setAdapter(mFriendAdapter);
-						
-						
-						
-						
-						
+						lv.setOnItemClickListener(FriendList.this);
 					}
 				});
 				
@@ -95,15 +100,13 @@ JSONObject json;
 		}
 
 		@Override
-		public void onFileNotFoundException(FileNotFoundException e,
-				Object state) {
+		public void onFileNotFoundException(FileNotFoundException e, Object state) {
 			// TODO Auto-generated method stub
 			
 		}
 
 		@Override
-		public void onMalformedURLException(MalformedURLException e,
-				Object state) {
+		public void onMalformedURLException(MalformedURLException e, Object state) {
 			// TODO Auto-generated method stub
 			
 		}
@@ -115,6 +118,23 @@ JSONObject json;
 		}
 		
 	}
-    
+
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
+		final TextView fb_id = (TextView)v.findViewById(R.id.fb_id);
+		final TextView name = (TextView)v.findViewById(R.id.name);
+		new AlertDialog.Builder(this).setTitle("Invite Friend To Jon Drop Four!")
+			.setMessage("Massage would be posted on "+name.getText()+"'s wall")
+			.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					Intent i = new Intent(FriendList.this, PostOnWallActivity.class);
+					i.putExtra("name", name.getText());
+					i.putExtra("fb_id", fb_id.getText());
+					startActivity(i);
+				}
+			}).setNegativeButton("No", null).show();
+	}
     
 }

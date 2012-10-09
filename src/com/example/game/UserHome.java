@@ -21,6 +21,7 @@ import com.facebook.android.Util;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -122,6 +123,9 @@ public class UserHome extends Activity {
 				profile = new JSONObject(response);
 				final String name = profile.getString("name");
 				final String id = profile.getString("id");
+				SharedPreferences.Editor editor = UserHome.this.getSharedPreferences("my_pref", MODE_WORLD_READABLE).edit();
+				editor.putString("my_fb_id", id);
+				editor.commit();
 				
 				final ImageView user_picture;
 				user_picture=(ImageView)findViewById(R.id.image);

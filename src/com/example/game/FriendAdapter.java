@@ -1,15 +1,8 @@
 package com.example.game;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,6 +59,9 @@ public class FriendAdapter extends BaseAdapter{
 	
 		TextView rawTextView = (TextView) convertView.findViewById(R.id.name);	
 		rawTextView.setText(innerClassFriendArray.get(position).getName());
+		
+		TextView fb_id = (TextView) convertView.findViewById(R.id.fb_id);	
+		fb_id.setText(innerClassFriendArray.get(position).getFbId());
 		
 		ImageView img = (ImageView)convertView.findViewById(R.id.icon);
 		String id = innerClassFriendArray.get(position).getFbId();
