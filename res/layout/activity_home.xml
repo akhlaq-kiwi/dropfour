@@ -32,12 +32,32 @@
         
     </LinearLayout>
     
-    <Button
-        android:id="@+id/facebook_login"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="Facebook Login!" />
+    <LinearLayout 
+        android:id="@+id/button_container"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal">
+        
+        <Button 
+           	android:id="@+id/facebook_login"
+           	android:layout_height="wrap_content"
+        	android:layout_width="wrap_content"
+        	android:background="@drawable/facebook"
+        	android:layout_gravity="left"
+            />
+        
+        <Button 
+           	android:id="@+id/email_login"
+           	android:layout_height="wrap_content"
+        	android:layout_width="wrap_content"
+        	android:background="@drawable/facebook"
+        	android:layout_gravity="right"
+            />
+        
+    </LinearLayout>
+    
+    
+    
 
     
 

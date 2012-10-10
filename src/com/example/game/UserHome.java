@@ -132,25 +132,30 @@ public class UserHome extends Activity {
 				URL img_value = null;
 				img_value = new URL("http://graph.facebook.com/"+id+"/picture?type=large");
 				final Bitmap mIcon1 = BitmapFactory.decodeStream(img_value.openConnection().getInputStream());
-				 
+				
+				
+				
+            	
+				
 				runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                     	((TextView)findViewById(R.id.top_text)).setText("Hello "+name);
                     	user_picture.setImageBitmap(mIcon1);
-                    	JSONObject json_data = new JSONObject();
                     	
-                    	try {
-							json_data.put("name", name);
-							json_data.put("fb_profileid", id);
-						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+
+        				JSONObject json_data = new JSONObject();
+        				try {
+        					json_data.put("name", name);
+        					json_data.put("fb_id", id);
+        				} catch (JSONException e) {
+        					// TODO Auto-generated catch block
+        					e.printStackTrace();
+        				}
+                    	String response1  = Utils.postData("user.php", json_data.toString());
+                    	Log.d("msg", response1);
                     	
                     	
-                    	String response  = Utils.postData("user.php", json_data.toString());
-                    	Log.d("response", response);
                     }
  
                 });
@@ -207,7 +212,7 @@ public class UserHome extends Activity {
 				final JSONArray friends = json.getJSONArray("data");
 				
 				friendArray = new ArrayList<Friend>();
-				for (int i = 0; i < 5; i++) {
+				for (int i = 0; i < friends.length(); i++) {
 					
 					JSONObject friend = friends.getJSONObject(i);
 					Friend frnd = new Friend();

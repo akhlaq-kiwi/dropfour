@@ -19,6 +19,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,8 +72,10 @@ public class Utils {
     
     public static String postData(final String page_uri, final String json_data){
     	
+    	
     	Thread thrd = new Thread(new Runnable() {
-			
+    		
+    		
 			@Override
 			public void run() {
 				// Create a new HttpClient and Post Header
@@ -97,11 +100,14 @@ public class Utils {
 		                sb.append(line + "n");
 		            }
 		            is.close();
-		            Utils.response = sb.toString();
+		            response = sb.toString();
+		            Log.d("msgutil", Utils.response);
 		        } catch (ClientProtocolException e) {
-		            // TODO Auto-generated catch block
+		            Log.d("Exp", "1");
+		            e.printStackTrace();
 		        } catch (IOException e) {
-		            // TODO Auto-generated catch block
+		        	Log.d("Exp", "2");
+		        	e.printStackTrace();
 		        }
 		        
 		       

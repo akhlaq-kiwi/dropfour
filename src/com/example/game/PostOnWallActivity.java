@@ -59,7 +59,9 @@ public class PostOnWallActivity extends Activity {
 		@Override
 		public void onComplete(String response, Object state) {
 			
-			String web_response = Utils.postData("invite_friend.php", json_data);
+			//String web_response = Utils.postData("invite_friend.php", json_data);
+			Log.d("jsondata",""+json_data);
+			
 			//Log.d("msg", web_response);
 			Intent i = new Intent(PostOnWallActivity.this, FriendList.class);
 			startActivity(i);
