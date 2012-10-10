@@ -15,6 +15,8 @@ import com.facebook.android.FacebookError;
 import android.os.Bundle;
 import android.util.Log;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
@@ -59,35 +61,31 @@ public class PostOnWallActivity extends Activity {
 		@Override
 		public void onComplete(String response, Object state) {
 			
-			//String web_response = Utils.postData("invite_friend.php", json_data);
-			Log.d("jsondata",""+json_data);
-			
-			//Log.d("msg", web_response);
+			String web_response = Utils.postData("invite_friend.php", json_data);
 			Intent i = new Intent(PostOnWallActivity.this, FriendList.class);
 			startActivity(i);
-		}
+		}	
 
 		@Override
 		public void onIOException(IOException e, Object state) {
-			// TODO Auto-generated method stub
+			Log.d("Exp", "IO");
 		}
 
 		@Override
 		public void onFileNotFoundException(FileNotFoundException e,
 				Object state) {
-			// TODO Auto-generated method stub
+			Log.d("Exp", "FilenotFound");
 		}
 
 		@Override
 		public void onMalformedURLException(MalformedURLException e,
 				Object state) {
-			// TODO Auto-generated method stub
+			Log.d("Exp", "Malformed");
 		}
 
 		@Override
 		public void onFacebookError(FacebookError e, Object state) {
-			// TODO Auto-generated method stub
+			Log.d("Exp", "FacebookError");
 		}
-    	
     }
 }

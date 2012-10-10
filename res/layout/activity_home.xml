@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_container"
     android:layout_width="match_parent"
@@ -19,7 +19,7 @@
         	android:layout_height="wrap_content"
         	android:layout_width="wrap_content"
         	android:src="@drawable/logo"
-        	android:layout_marginTop="20dp"
+        	android:layout_marginTop="40dp"
         />
         
         <ImageView android:id="@+id/logo"
@@ -32,39 +32,28 @@
         
     </LinearLayout>
     
-    <LinearLayout 
+    <RelativeLayout 
         android:id="@+id/button_container"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
-	    android:orientation="horizontal">
+	    android:orientation="horizontal"
+	    android:layout_alignParentBottom="true">
         
         <ImageButton 
-           	android:id="@+id/facebook_login1"
-           	android:layout_height="50dp"
-        	android:layout_width="50dp"
-        	android:background="@drawable/facebook"
-        	android:layout_alignParentRight="true"
-            />
-        
-        <ImageButton 
-           	android:id="@+id/email_login"
-           	android:layout_height="50dp"
-        	android:layout_width="50dp"
-        	android:background="@drawable/email"
-        	android:layout_alignParentLeft="true"
-            />
-        
-    </LinearLayout>
-    
-    
-    <Button 
            	android:id="@+id/facebook_login"
            	android:layout_height="wrap_content"
         	android:layout_width="wrap_content"
         	android:background="@drawable/facebook"
+        	android:layout_alignParentLeft="true"
+            />
+        
+        <ImageButton 
+           	android:id="@+id/email_login"
+           	android:layout_height="wrap_content"
+        	android:layout_width="wrap_content"
+        	android:background="@drawable/email"
         	android:layout_alignParentRight="true"
             />
-
-    
-
-</LinearLayout>
+        
+    </RelativeLayout>
+</RelativeLayout>

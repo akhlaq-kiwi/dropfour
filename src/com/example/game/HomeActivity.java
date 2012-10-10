@@ -19,7 +19,9 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class HomeActivity extends Activity {
@@ -38,7 +40,7 @@ public class HomeActivity extends Activity {
 			startActivity(i);
         }
         
-        Button FbLogin = (Button)findViewById(R.id.facebook_login);
+        ImageButton FbLogin = (ImageButton)findViewById(R.id.facebook_login);
         FbLogin.setOnClickListener(new View.OnClickListener() {
 			
 			@Override

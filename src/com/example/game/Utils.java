@@ -19,7 +19,9 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,8 +72,10 @@ public class Utils {
         listView.requestLayout();
     }
     
-    public static String postData(final String page_uri, final String json_data){
+    @SuppressLint("NewApi")
+	public static String postData(final String page_uri, final String json_data){
     	
+    	response = "";
     	
     	Thread thrd = new Thread(new Runnable() {
     		
@@ -101,7 +105,7 @@ public class Utils {
 		            }
 		            is.close();
 		            response = sb.toString();
-		            Log.d("msgutil", Utils.response);
+		           
 		        } catch (ClientProtocolException e) {
 		            Log.d("Exp", "1");
 		            e.printStackTrace();
@@ -114,6 +118,11 @@ public class Utils {
 			}
 		});
     	thrd.start();
+    	
+    	while(response.isEmpty() == true)
+    	{
+    		//Log.d("Exp", "2ffffff");
+    	}
 
     	
     	return response;
