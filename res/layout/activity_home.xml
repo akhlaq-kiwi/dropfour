@@ -16,17 +16,17 @@
 	   >
         
         <ImageView android:id="@+id/logo"
-        	android:layout_height="wrap_content"
-        	android:layout_width="wrap_content"
+        	android:layout_height="200dp"
+        	android:layout_width="200dp"
         	android:src="@drawable/logo"
-        	android:layout_marginTop="40dp"
+        	android:layout_marginTop="20dp"
         />
         
-        <ImageView android:id="@+id/logo"
-        	android:layout_height="wrap_content"
-        	android:layout_width="wrap_content"
+        <ImageView android:id="@+id/logo1"
+        	android:layout_height="150dp"
+        	android:layout_width="150dp"
         	android:src="@drawable/logo2"
-        	android:layout_marginTop="20dp"        	
+        	android:layout_marginTop="0dp"        	
         />
         
         
@@ -41,16 +41,16 @@
         
         <ImageButton 
            	android:id="@+id/facebook_login"
-           	android:layout_height="wrap_content"
-        	android:layout_width="wrap_content"
+           	android:layout_height="140dp"
+        	android:layout_width="140dp"
         	android:background="@drawable/facebook"
         	android:layout_alignParentLeft="true"
             />
         
         <ImageButton 
            	android:id="@+id/email_login"
-           	android:layout_height="wrap_content"
-        	android:layout_width="wrap_content"
+           	android:layout_height="140dp"
+        	android:layout_width="140dp"
         	android:background="@drawable/email"
         	android:layout_alignParentRight="true"
             />

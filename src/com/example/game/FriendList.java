@@ -66,6 +66,7 @@ public class FriendList extends Activity implements OnItemClickListener  {
 					
 					frnd.setName(friend.getString("name"));
 					frnd.setId(i+1);
+					frnd.setGameId(i+1);
 					frnd.setFbId(friend.getString("id"));
 					friendArray.add(frnd);
 					

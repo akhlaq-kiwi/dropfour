@@ -60,6 +60,9 @@ public class FriendAdapter extends BaseAdapter{
 		TextView rawTextView = (TextView) convertView.findViewById(R.id.name);	
 		rawTextView.setText(innerClassFriendArray.get(position).getName());
 		
+		TextView game_id = (TextView) convertView.findViewById(R.id.game_id);	
+		game_id.setText(""+innerClassFriendArray.get(position).getGameId());
+		
 		TextView fb_id = (TextView) convertView.findViewById(R.id.fb_id);	
 		fb_id.setText(innerClassFriendArray.get(position).getFbId());
 		

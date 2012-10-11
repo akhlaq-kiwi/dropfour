@@ -4,6 +4,7 @@ public class Friend {
 	private String name;
 	private long id;
 	private String fb_id;
+	private long game_id;
 		
 	public String getName() {
 		return name;
@@ -17,6 +18,13 @@ public class Friend {
 	}
 	public void setId(long id) {
 		this.id = id;
+	}
+	
+	public long getGameId() {
+		return game_id;
+	}
+	public void setGameId(long game_id) {
+		this.game_id = game_id;
 	}
 	
 	public String getFbId() {
