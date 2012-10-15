@@ -3,6 +3,8 @@ package com.example.game;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +62,9 @@ public class FriendAdapter extends BaseAdapter{
 		TextView rawTextView = (TextView) convertView.findViewById(R.id.name);	
 		rawTextView.setText(innerClassFriendArray.get(position).getName());
 		
+		Typeface typeFace=Typeface.createFromAsset(this_ctx.getAssets(),"Orange_LET_Plain.TTF");
+		rawTextView.setTypeface(typeFace);
+		
 		TextView game_id = (TextView) convertView.findViewById(R.id.game_id);	
 		game_id.setText(""+innerClassFriendArray.get(position).getGameId());
 		
@@ -74,7 +79,9 @@ public class FriendAdapter extends BaseAdapter{
 		img.setImageBitmap(Utility.model.getImage(id, url));
 		
 		return convertView;
-	}	
+	}
+
+		
 	
 	
 	
