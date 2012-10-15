@@ -31,10 +31,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -55,33 +58,32 @@ public class UserHome extends Activity implements OnItemClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_home);
         SessionStore.restore(facebook, getApplicationContext());
-         progressbar = ProgressDialog.show(UserHome.this, "Wait", "Please Wait..");
+        //progressbar = ProgressDialog.show(UserHome.this, "Wait", "Please Wait..");
         
         mAsyncRunner.request("me", new GetInfo());
         
-        ((Button)findViewById(R.id.logout)).setOnClickListener(new View.OnClickListener() {
+       ImageButton img_logout = (ImageButton)findViewById(R.id.logout);
+       img_logout.setOnTouchListener(new OnTouchListener() {
 			
 			@Override
-			public void onClick(View v) {
+			public boolean onTouch(View arg0, MotionEvent arg1) {
 				mAsyncRunner.logout(getApplicationContext(), new logoutListner());
+				return false;
 			}
 		});
         
-        ((Button)findViewById(R.id.invite_friends)).setOnClickListener(new View.OnClickListener() {
+        ImageView img = (ImageView)findViewById(R.id.invite_friends);
+        img.setOnTouchListener(new OnTouchListener() {
 			
 			@Override
-			public void onClick(View v) {
-//				Bundle params = new Bundle();
-//		        params.putString("fields", "name, picture, location");
+			public boolean onTouch(View arg0, MotionEvent arg1) {
 				Intent myIntent = new Intent(UserHome.this, FriendList.class);
 	            startActivity(myIntent);
-				
-		        
-				
-				
-				
+				return false;
 			}
 		});
+        
+        
 	}
 	
 	
@@ -225,7 +227,7 @@ public class UserHome extends Activity implements OnItemClickListener {
 						
 					}
 				});
-            	progressbar.dismiss();
+            	//progressbar.dismiss();
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
