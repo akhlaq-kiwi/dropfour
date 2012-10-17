@@ -23,6 +23,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -40,6 +41,8 @@ public class FriendList extends Activity implements OnItemClickListener  {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         setContentView(R.layout.friend_list);
         SessionStore.restore(facebook, getApplicationContext());
         
@@ -60,7 +63,6 @@ public class FriendList extends Activity implements OnItemClickListener  {
 				
 				friendArray = new ArrayList<Friend>();
 				for (int i = 0; i < friends.length(); i++) {
-					
 					JSONObject friend = friends.getJSONObject(i);
 					Friend frnd = new Friend();
 					

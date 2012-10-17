@@ -5,6 +5,7 @@ public class Friend {
 	private long id;
 	private String fb_id;
 	private long game_id;
+	private String time;
 		
 	public String getName() {
 		return name;
@@ -12,7 +13,13 @@ public class Friend {
 	public void setName(String fb_name) {
 		this.name = fb_name;
 	}
-		
+	
+	public String getTime() {
+		return time;
+	}
+	public void setTime(String time) {
+		this.time = time;
+	}
 	public long getId() {
 		return id;
 	}

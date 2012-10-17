@@ -34,6 +34,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -49,6 +50,7 @@ public class UserHome extends Activity implements OnItemClickListener {
 	private ArrayList<Friend> invitesArray, my_turnsArray, their_turnArray;
 	private Facebook facebook = new Facebook(Utils.APP_ID);
 	ListView lv;
+	private ProgressDialog nProgress;
     private AsyncFacebookRunner mAsyncRunner = new AsyncFacebookRunner(facebook);
     FriendAdapter mFriendAdapter;
     ProgressDialog progressbar;
@@ -56,6 +58,8 @@ public class UserHome extends Activity implements OnItemClickListener {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         setContentView(R.layout.user_home);
         SessionStore.restore(facebook, getApplicationContext());
         //progressbar = ProgressDialog.show(UserHome.this, "Wait", "Please Wait..");
@@ -67,24 +71,25 @@ public class UserHome extends Activity implements OnItemClickListener {
 			
 			@Override
 			public boolean onTouch(View arg0, MotionEvent arg1) {
+				nProgress = new ProgressDialog(UserHome.this);
+				nProgress.setMessage("Please wait..");
+				nProgress.show();
+				
 				mAsyncRunner.logout(getApplicationContext(), new logoutListner());
 				return false;
 			}
 		});
         
-        ImageView img = (ImageView)findViewById(R.id.invite_friends);
-        img.setOnTouchListener(new OnTouchListener() {
+        ImageButton invite_firnds = (ImageButton)findViewById(R.id.invite_friends);
+        invite_firnds.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
-			public boolean onTouch(View arg0, MotionEvent arg1) {
+			public void onClick(View v) {
 				Intent myIntent = new Intent(UserHome.this, FriendList.class);
-	            startActivity(myIntent);
-				return false;
+	            startActivity(myIntent);				
 			}
 		});
-        
-        
-	}
+    }
 	
 	
 	
@@ -92,9 +97,11 @@ public class UserHome extends Activity implements OnItemClickListener {
 
 		@Override
 		public void onComplete(String response, Object state) {
-			SessionStore.clear(getApplicationContext());
-			Intent i = new Intent(getApplicationContext(), HomeActivity.class);
+			SessionStore.clear(UserHome.this);
+			nProgress.dismiss();
+			Intent i = new Intent(UserHome.this, HomeActivity.class);
 			startActivity(i);
+			
 			
 		}
 
@@ -155,6 +162,7 @@ public class UserHome extends Activity implements OnItemClickListener {
 						invite_friend.setName(friend.getString("name"));
 						invite_friend.setId(i+1);
 						invite_friend.setGameId(friend.getLong("game_id"));
+						invite_friend.setTime(friend.getString("time"));
 						invite_friend.setFbId(friend.getString("id"));
 						invitesArray.add(invite_friend);
 	            	}
@@ -170,6 +178,7 @@ public class UserHome extends Activity implements OnItemClickListener {
 						
 	            		my_turns_friend.setName(friend.getString("name"));
 	            		my_turns_friend.setId(i+1);
+	            		my_turns_friend.setTime(friend.getString("time"));
 	            		my_turns_friend.setGameId(friend.getLong("game_id"));
 	            		my_turns_friend.setFbId(friend.getString("id"));
 	            		my_turnsArray.add(my_turns_friend);
@@ -187,6 +196,7 @@ public class UserHome extends Activity implements OnItemClickListener {
 						
 	            		their_turns_friend.setName(friend.getString("name"));
 	            		their_turns_friend.setId(i+1);
+	            		their_turns_friend.setTime(friend.getString("time"));
 	            		their_turns_friend.setGameId(friend.getLong("game_id"));
 	            		their_turns_friend.setFbId(friend.getString("id"));
 	            		their_turnArray.add(their_turns_friend);

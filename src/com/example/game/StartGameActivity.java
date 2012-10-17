@@ -7,12 +7,16 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
+import android.view.Window;
 import android.widget.Button;
 
 public class StartGameActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         setContentView(R.layout.start_game);
         
         Intent i = getIntent();
@@ -30,21 +34,20 @@ public class StartGameActivity extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        String response = Utils.postData("check_game_status.php", json.toString());
+        final String response = Utils.postData("check_game_status.php", json.toString());
+       
         try {
 			JSONObject gameObj = new JSONObject(response).getJSONObject("game_data");
 			JSONObject my_dataObj = new JSONObject(response).getJSONObject("my_data");
 			JSONObject opponent_dataObj = new JSONObject(response).getJSONObject("opponent_data");
 			Button start_game = (Button)findViewById(R.id.start_new);
-	        if(gameObj.getInt("status")==1){
-	        	start_game.setText("Play With "+opponent_dataObj.getString("name"));
-	        }
-	        //notifyAll();
+		    Log.d("msg", response);
+				        //notifyAll();
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        
+		
         
         
     }

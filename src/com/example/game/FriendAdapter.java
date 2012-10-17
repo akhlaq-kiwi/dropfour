@@ -58,11 +58,12 @@ public class FriendAdapter extends BaseAdapter{
 			convertView = layoutInflater.inflate(R.layout.grid_item, null);
 			mIconList.add((ImageView)convertView.findViewById(R.id.icon)); 
 		} 
-	
+		Typeface typeFace=Typeface.createFromAsset(this_ctx.getAssets(),"Orange_LET_Plain.TTF");
+		
 		TextView rawTextView = (TextView) convertView.findViewById(R.id.name);	
 		rawTextView.setText(innerClassFriendArray.get(position).getName());
 		
-		Typeface typeFace=Typeface.createFromAsset(this_ctx.getAssets(),"Orange_LET_Plain.TTF");
+		
 		rawTextView.setTypeface(typeFace);
 		
 		TextView game_id = (TextView) convertView.findViewById(R.id.game_id);	
@@ -73,6 +74,10 @@ public class FriendAdapter extends BaseAdapter{
 		
 		ImageView img = (ImageView)convertView.findViewById(R.id.icon);
 		String id = innerClassFriendArray.get(position).getFbId();
+		
+		TextView time_txt = (TextView) convertView.findViewById(R.id.time);	
+		time_txt.setText(innerClassFriendArray.get(position).getTime());
+		time_txt.setTypeface(typeFace);
 		
 		String url = "http://graph.facebook.com/"+id+"/picture?type=small";
 		

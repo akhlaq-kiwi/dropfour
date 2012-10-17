@@ -14,6 +14,7 @@ import com.facebook.android.FacebookError;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Window;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -26,6 +27,8 @@ public class PostOnWallActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         setContentView(R.layout.post_on_wall);
         SessionStore.restore(facebook, getApplicationContext());
        
